@@ -30,21 +30,6 @@ class LocationSearchInput extends React.Component {
                 placeholder: 'Search Places ...',
               })}
             />
-            <input className= 'location-search-input'
-              {...getInputProps({
-                placeholder: 'Search Places ...',
-              })}
-            />
-            <input className= 'location-search-input'
-              {...getInputProps({
-                placeholder: 'Search Places ...',
-              })}
-            />
-            <input className= 'location-search-input'
-              {...getInputProps({
-                placeholder: 'Search Places ...',
-              })}
-            />
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
               {suggestions.map(suggestion => {
