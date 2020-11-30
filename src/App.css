@@ -8,15 +8,23 @@
 .location-search-input {
   font-family: 'Lato', sans-serif;
   width: 300px;
-  height: 30px;
-  border: 2px solid black;
+  height: 35px;
+  border: 1px solid lightgray;
   border-radius: 5px;
-  font-size: .9rem;
+  font-size: .8rem;
   color: black;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+  transition: all .5s;
 }
 
+.location-search-input:hover {
+  border: 1px solid rgb(64, 150, 207);
+}
 .input-suggestion {
   font-family: 'Lato', sans-serif;
   padding-left: 20px;
