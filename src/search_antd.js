@@ -1,88 +1,69 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React,{useState,useEffect} from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Select } from 'antd';
-import jsonp from 'fetch-jsonp';
-import querystring from 'querystring';
+import axios from "axios";
 
 
 const { Option } = Select;
 
-let timeout;
-let currentValue;
+const SearchApi = ()=>{
+  const [value,setValue] = useState(null)
 
-function fetch(value, callback) {
-  if (timeout) {
-    clearTimeout(timeout);
-    timeout = null;
-  }
-  currentValue = value;
-
-  function fake() {
-    const str = querystring.encode({
-      code: 'utf-8',
-      q: value,
-    });
-    jsonp(`https://suggest.taobao.com/sug?${str}`)
-      .then(response => response.json())
-      .then(d => {
-        if (currentValue === value) {
-          const { result } = d;
-          const data = [];
-          result.forEach(r => {
-            data.push({
-              value: r[0],
-              text: r[0],
-            });
-          });
-          callback(data);
-        }
-      });
+  const first = ()=>{
+    axios.get('https://maps.googleapis.com/maps/api/place/js/AutocompletionService.GetPredictionsJson?1sdortmund&4str-TR&15e3&21m1&2e1&callback=_xdc_._slmmco&key=AIzaSyCGMiLWMzxT9B9Jvnm8BKyovMAb-Pczr84&token=92971').then(res => {
+      console.log(res);
+      setValue(res)
+    }).catch(err => console.log(err))
   }
 
-  timeout = setTimeout(fake, 300);
+  useEffect(()=>{
+    first()
+  },[])
+  return (
+    <div>{JSON.stringify(value)}</div>
+  )
 }
 
-class SearchInput extends React.Component {
-  state = {
-    data: [],
-    value: undefined,
-  };
+// class SearchInput extends React.Component {
+//   state = {
+//     data: [],
+//     value: undefined,
+//   };
 
-  handleSearch = value => {
-    if (value) {
-      fetch(value, data => this.setState({ data }));
-    } else {
-      this.setState({ data: [] });
-    }
-  };
+//   handleSearch = value => {
+//     if (value) {
+//       fetch(value, data => this.setState({ data }));
+//     } else {
+//       this.setState({ data: [] });
+//     }
+//   };
 
-  handleChange = value => {
-    this.setState({ value });
-  };
+//   handleChange = value => {
+//     this.setState({ value });
+//   };
 
-  render() {
-    const options = this.state.data.map(d => <Option key={d.value}>{d.text}</Option>);
-    return (
-      <Select
-        showSearch
-        value={this.state.value}
-        placeholder={this.props.placeholder}
-        style={this.props.style}
-        defaultActiveFirstOption={false}
-        showArrow={false}
-        filterOption={false}
-        onSearch={this.handleSearch}
-        onChange={this.handleChange}
-        notFoundContent={null}
-      >
-        {options}
-      </Select>
-    );
-  }
-}
-ReactDOM.render(<SearchInput placeholder="input search text" style={{ width: 200 }} />, document.getElementById('container'));
+//   render() {
+//     const options = this.state.data.map(d => <Option key={d.value}>{d.text}</Option>);
+//     return (
+//       <Select
+//         showSearch
+//         value={this.state.value}
+//         placeholder={this.props.placeholder}
+//         style={this.props.style}
+//         defaultActiveFirstOption={false}
+//         showArrow={false}
+//         filterOption={false}
+//         onSearch={this.handleSearch}
+//         onChange={this.handleChange}
+//         notFoundContent={null}
+//       >
+//         {options}
+//       </Select>
+//     );
+//   }
+// }
+// ReactDOM.render(<SearchInput placeholder="input search text" style={{ width: 200 }} />, document.getElementById('container'));
 
-export default SearchInput;
+export default SearchApi;
 
