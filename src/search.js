@@ -15,9 +15,6 @@ class LocationSearchInput extends React.Component {
     this.setState({ address });
   };
 
-
-
-
   render() {
     return (
       <PlacesAutocomplete
