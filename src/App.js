@@ -7,9 +7,9 @@ import Search from "./search_input"
 function App() {
   return (
     <div className="App">
-      <LocationSearchInput/>
+      {/* <LocationSearchInput/> */}
       <SearchInput/>
-      <Search/>
+      {/* <Search/> */}
     </div>
   );
 }

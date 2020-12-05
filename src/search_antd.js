@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect} from 'react'; // use state icin, use effect ise
 import 'antd/dist/antd.css';
 import './index.css';
 import { Select } from 'antd';
@@ -9,9 +9,10 @@ const { Option } = Select;
 
 const SearchApi = ()=>{
   const [value,setValue] = useState(null)
+  const [data,setData] = useState(null)
 
   const first = ()=>{
-    axios.get('https://maps.googleapis.com/maps/api/place/js/AutocompletionService.GetPredictionsJson?1sdortmund&4str-TR&15e3&21m1&2e1&callback=_xdc_._slmmco&key=AIzaSyCGMiLWMzxT9B9Jvnm8BKyovMAb-Pczr84&token=92971').then(res => {
+    axios.get('https://maps.googleapis.com/maps/api/place/js/AutocompletionService.GetPredictionsJson?1s{value}&4str-TR&15e3&21m1&2e1&callback=_xdc_._slmmco&key=AIzaSyCGMiLWMzxT9B9Jvnm8BKyovMAb-Pczr84&token=92971').then(res => {
       console.log(res);
       setValue(res)
     }).catch(err => console.log(err))
